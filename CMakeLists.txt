@@ -7,6 +7,7 @@ add_definitions(
 	-D_LARGEFILE64_SOURCE
 	-D_THREAD_SAFE
 	-D_REENTRANT
+	-iquote "${CMAKE_CURRENT_SOURCE_DIR}/cups"
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/cups)
