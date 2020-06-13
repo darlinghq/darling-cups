@@ -511,6 +511,13 @@ enum
     kDNSServiceErr_PollingMode               = -65567,
     kDNSServiceErr_Timeout                   = -65568
 
+#ifdef DARLING
+    // ugh, i know this random comma is ugly, but we want to keep all the Darling-only modifications contained in here
+    // (Apple didn't leave a trailing comma in their enum definition, as you can see above)
+    ,
+    kDNSServiceErr_DefunctConnection = -65569, // unsure what the real value is (not documented anywhere)
+#endif // DARLING
+
     /* mDNS Error codes are in the range
      * FFFE FF00 (-65792) to FFFE FFFF (-65537) */
     };
