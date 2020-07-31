@@ -23,7 +23,7 @@ GSSAPI_Options=--disable-gssapi
 endif
 
 Configure_Flags = `$(SRCROOT)/gettargetflags.sh host` \
-		  --with-cups-build="cups-483" \
+		  --with-cups-build="cups-483.2" \
 		  --with-adminkey="system.print.admin" \
 		  --with-operkey="system.print.operator" \
 		  --with-pam-module=opendirectory \
@@ -35,7 +35,6 @@ Configure_Flags = `$(SRCROOT)/gettargetflags.sh host` \
 # Add "--enable-debug-guards" during OS development, remove for production...
 #		  --enable-debug-guards \
 
-SR="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
 # CUPS is able to build 1/2/3/4-way fat on its own, so don't override the
 # compiler flags in make, just in configure...
 Environment	=	CC=`/usr/bin/xcrun --find clang` \
