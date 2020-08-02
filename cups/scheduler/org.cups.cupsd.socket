@@ -1,0 +1,9 @@
+[Unit]
+Description=CUPS Scheduler
+PartOf=org.cups.cupsd.service
+
+[Socket]
+ListenStream=/private/var/run/cupsd
+
+[Install]
+WantedBy=sockets.target
