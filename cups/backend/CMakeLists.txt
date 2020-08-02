@@ -4,7 +4,7 @@ add_darling_static_library(cups_libbackend FAT SOURCES
 	ieee1284.c
 	network.c
 	runloop.c
-	snmp-supplies.o
+	snmp-supplies.c
 )
 
 #
