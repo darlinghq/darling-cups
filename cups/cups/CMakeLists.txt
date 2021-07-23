@@ -101,7 +101,7 @@ target_link_libraries(cupsimage
 	cups
 	system
 )
-set_target_properties(cups PROPERTIES OUTPUT_NAME "cupsimage.2")
+set_target_properties(cupsimage PROPERTIES OUTPUT_NAME "cupsimage.2")
 
 #
 # install everything
