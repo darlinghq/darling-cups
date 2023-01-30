@@ -1,24 +1,25 @@
-/* config.h.  Generated from config.h.in by configure.  */
 /*
- * Configuration file for CUPS.
+ * Configuration file for CUPS and Xcode.
  *
- * Copyright 2007-2019 by Apple Inc.
+ * Copyright 2007-2020 by Apple Inc.
  * Copyright 1997-2007 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more
- * information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
  */
 
 #ifndef _CUPS_CONFIG_H_
 #define _CUPS_CONFIG_H_
 
+#include <AvailabilityMacros.h>
+#include <TargetConditionals.h>
+
+
 /*
  * Version of software...
  */
 
-#define CUPS_SVERSION "CUPS v2.3.0"
-#define CUPS_MINIMAL "CUPS/2.3.0"
-#define CUPS_LITE	0
+#define CUPS_SVERSION "CUPS v2.3.4"
+#define CUPS_MINIMAL "CUPS/2.3.4"
 
 
 /*
@@ -147,10 +148,12 @@
  * Do we have PAM stuff?
  */
 
-#define HAVE_LIBPAM 1
+#if TARGET_OS_OSX
+#  define HAVE_LIBPAM 1
 /* #undef HAVE_PAM_PAM_APPL_H */
-#define HAVE_PAM_SET_ITEM 1
-#define HAVE_PAM_SETCRED 1
+#  define HAVE_PAM_SET_ITEM 1
+#  define HAVE_PAM_SETCRED 1
+#endif /* TARGET_OS_OSX */
 
 
 /*
@@ -320,7 +323,10 @@
  * What Security framework headers do we have?
  */
 
-#define HAVE_AUTHORIZATION_H 1
+#if TARGET_OS_OSX
+#  define HAVE_AUTHORIZATION_H 1
+#endif /* TARGET_OS_OSX */
+
 #define HAVE_SECCERTIFICATE_H 1
 #define HAVE_SECITEM_H 1
 #define HAVE_SECPOLICY_H 1
@@ -330,7 +336,9 @@
  * Do we have the SecGenerateSelfSignedCertificate function?
  */
 
-/* #undef HAVE_SECGENERATESELFSIGNEDCERTIFICATE */
+#if !TARGET_OS_OSX
+#  define HAVE_SECGENERATESELFSIGNEDCERTIFICATE 1
+#endif /* !TARGET_OS_OSX */
 
 
 /*
@@ -485,17 +493,18 @@
  * Do we have ApplicationServices public headers?
  */
 
-#ifdef DARLING
-// not sure why `configure` didn't find it, it was definitely in the include directories i gave it
-#define HAVE_APPLICATIONSERVICES_H 1
-#endif
+#if TARGET_OS_OSX
+#  define HAVE_APPLICATIONSERVICES_H 1
+#endif /* TARGET_OS_OSX */
 
 
 /*
  * Do we have the SCDynamicStoreCopyComputerName function?
  */
 
-#define HAVE_SCDYNAMICSTORECOPYCOMPUTERNAME 1
+#if TARGET_OS_OSX
+#  define HAVE_SCDYNAMICSTORECOPYCOMPUTERNAME 1
+#endif /* TARGET_OS_OSX */
 
 
 /*
@@ -534,13 +543,15 @@
  * Do we have the GSSAPI support library (for Kerberos support)?
  */
 
-#define HAVE_GSS_ACQUIRE_CRED_EX_F 1
-#define HAVE_GSS_C_NT_HOSTBASED_SERVICE 1
-#define HAVE_GSS_GSSAPI_H 1
-#define HAVE_GSS_GSSAPI_SPI_H 1
-#define HAVE_GSSAPI 1
+#if TARGET_OS_OSX
+#  define HAVE_GSS_ACQUIRED_CRED_EX_F 1
+#  define HAVE_GSS_C_NT_HOSTBASED_SERVICE 1
+#  define HAVE_GSS_GSSAPI_H 1
+/* #undef HAVE_GSS_GSSAPI_SPI_H */
+#  define HAVE_GSSAPI 1
 /* #undef HAVE_GSSAPI_GSSAPI_H */
 /* #undef HAVE_GSSAPI_H */
+#endif /* TARGET_OS_OSX */
 
 
 /*
@@ -651,10 +662,14 @@
 
 
 /*
- * Location of macOS localization bundle, if any.
+ * Location of localization bundle, if any.
  */
 
-#define CUPS_BUNDLEDIR "/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/PrintCore.framework/Versions/A"
+#if TARGET_OS_OSX
+#  define CUPS_BUNDLEDIR "/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/PrintCore.framework/Versions/A"
+#else
+#  define CUPS_BUNDLEDIR "/System/Library/PrivateFrameworks/PrintKit.framework/Versions/A"
+#endif /* TARGET_OS_OSX */
 
 
 /*
