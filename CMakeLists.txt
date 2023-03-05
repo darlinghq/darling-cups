@@ -17,7 +17,10 @@ add_link_options(
 	-Wl,-pie
 )
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/cups)
+include_directories(
+	${CMAKE_CURRENT_SOURCE_DIR}/cups
+	${CMAKE_CURRENT_SOURCE_DIR}/cups/xcode
+)
 
 add_subdirectory(cups/cups)
 add_subdirectory(cups/tools)

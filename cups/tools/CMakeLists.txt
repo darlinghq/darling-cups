@@ -4,7 +4,7 @@ project(cups-tools)
 # link everything with libcups
 #
 
-foreach(EXE IN ITEMS ippevepcl ippeveps ippeveprinter ippfind ipptool)
+foreach(EXE IN ITEMS ippevepcl ippeveps ippfind ipptool)
 	add_darling_executable(${EXE}
 		${EXE}.c
 	)
@@ -12,6 +12,15 @@ foreach(EXE IN ITEMS ippevepcl ippeveps ippeveprinter ippfind ipptool)
 		cups
 	)
 endforeach()
+
+add_darling_executable(ippeveprinter
+	ippeveprinter.c
+)
+
+target_link_libraries(ippeveprinter
+	cups
+	pam.2
+)
 
 #
 # install everything
