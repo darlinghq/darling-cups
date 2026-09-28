@@ -1185,11 +1185,17 @@ cups_finalize_client_conf(
 
 #else
 #  ifdef CUPS_DEFAULT_DOMAINSOCKET
+#    if defined(__APPLE__)
+    cups_set_server_name(cc, CUPS_DEFAULT_DOMAINSOCKET);
+#    else
     if (!access(CUPS_DEFAULT_DOMAINSOCKET, R_OK))
       cups_set_server_name(cc, CUPS_DEFAULT_DOMAINSOCKET);
     else
-#  endif /* CUPS_DEFAULT_DOMAINSOCKET */
+      cups_set_server_name(cc, "localhost");
+#    endif
+#  else
     cups_set_server_name(cc, "localhost");
+#  endif /* CUPS_DEFAULT_DOMAINSOCKET */
 #endif /* __APPLE__ && !TARGET_OS_OSX */
   }
 
