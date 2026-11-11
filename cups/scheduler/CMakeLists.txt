@@ -121,10 +121,13 @@ install(
 
 install(
 	FILES
-		org.cups.cupsd.plist
 		org.cups.cups-lpd.plist
+		${CMAKE_CURRENT_SOURCE_DIR}/../../darling/org.darlinghq.cups-hostsocket.plist
 	DESTINATION libexec/darling/System/Library/LaunchDaemons
 )
+
+# Darling does not run its own cupsd: clients talk to the host's scheduler (see
+# org.darlinghq.cups-hostsocket.plist), so org.cups.cupsd.plist is not installed.
 
 set(EMPTY_DIRS
 	usr/libexec/cups/driver

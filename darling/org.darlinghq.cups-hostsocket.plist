@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	  Darling does not run its own cupsd. CUPS clients in the prefix use the
+	  host's scheduler, whose domain socket is reachable through the host
+	  filesystem view at /Volumes/SystemRoot. The client's default server is
+	  /private/var/run/cupsd; this job points that path at the host socket
+	  on every boot (the container empties /var/run at start, so a link made
+	  at install time would not survive).
+	-->
+	<key>Label</key>
+	<string>org.darlinghq.cups-hostsocket</string>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/ln</string>
+		<string>-sfn</string>
+		<string>/Volumes/SystemRoot/run/cups/cups.sock</string>
+		<string>/private/var/run/cupsd</string>
+	</array>
+</dict>
+</plist>
