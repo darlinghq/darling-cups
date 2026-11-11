@@ -30,5 +30,5 @@ install(
 )
 
 foreach(LINK IN ITEMS cupsdisable cupsenable cupsreject)
-	InstallSymlink("cupsaccept" "${CMAKE_INSTALL_PREFIX}/libexec/darling/usr/bin/${LINK}")
+	InstallSymlink("cupsaccept" "${CMAKE_INSTALL_PREFIX}/libexec/darling/usr/sbin/${LINK}")
 endforeach()
