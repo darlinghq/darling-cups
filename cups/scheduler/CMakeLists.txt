@@ -122,7 +122,7 @@ install(
 install(
 	FILES
 		org.cups.cups-lpd.plist
-		${PROJECT_SOURCE_DIR}/darling/org.darlinghq.cups-hostsocket.plist
+		${CMAKE_CURRENT_SOURCE_DIR}/../../darling/org.darlinghq.cups-hostsocket.plist
 	DESTINATION libexec/darling/System/Library/LaunchDaemons
 )
 
