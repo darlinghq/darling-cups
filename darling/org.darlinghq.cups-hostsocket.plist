@@ -6,9 +6,10 @@
 	  Darling does not run its own cupsd. CUPS clients in the prefix use the
 	  host's scheduler, whose domain socket is reachable through the host
 	  filesystem view at /Volumes/SystemRoot. The client's default server is
-	  /private/var/run/cupsd; this job points that path at the host socket
-	  on every boot (the container empties /var/run at start, so a link made
-	  at install time would not survive).
+	  /private/var/run/cupsd; this job points that path at the host socket on
+	  every boot (the container empties /var/run at start, so a link made at
+	  install time would not survive). A host without the socket clears the
+	  guest link, if present, so no dangling passthrough is left behind.
 	-->
 	<key>Label</key>
 	<string>org.darlinghq.cups-hostsocket</string>
@@ -16,10 +17,9 @@
 	<true/>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/bin/ln</string>
-		<string>-sfn</string>
-		<string>/Volumes/SystemRoot/run/cups/cups.sock</string>
-		<string>/private/var/run/cupsd</string>
+		<string>/bin/sh</string>
+		<string>-c</string>
+		<string>host=/Volumes/SystemRoot/run/cups/cups.sock; guest=/private/var/run/cupsd; if [ -S &quot;$host&quot; ]; then /bin/ln -sfn &quot;$host&quot; &quot;$guest&quot;; elif [ -L &quot;$guest&quot; ]; then /bin/rm -f &quot;$guest&quot;; fi</string>
 	</array>
 </dict>
 </plist>
